@@ -38,5 +38,5 @@ y insertar algunos registros de prueba
     INSERT INTO Usuarios (cedula, clave, nombre, telefono, email)
     VALUES (1, 'juan1', 'Juan', '305', 'j@gmail.com');
     
-    INSERT INTO Docentes (usuario_id, nombre, apellidos, email, telefono, blog, profesional, escalaron, idioma, añosExperiencia, areaTrabajo)
+    INSERT INTO Docentes (usuario_id, nombre, apellidos, email, telefono, blog, profesional, escalaron, idioma, años_experiencia, area_trabajo)
     VALUES (1, 'Jhon', 'Arrieta Arrieta', 'jhon@gmail.com', '456', 'jhonarrietablog.com', 1, 1, 'Español', 10, 'Software');
