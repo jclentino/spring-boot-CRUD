@@ -1,5 +1,6 @@
 package com.app.api.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,19 @@ public class UsuarioModelo {
     @Column(name = "cedula")
     private int cedula;
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DocenteModelo> docentes = new ArrayList<DocenteModelo>();
+
+    public List<DocenteModelo> getDocentes() {
+        return docentes;
+    }
+
+
+    public void setDocentes(List<DocenteModelo> docentes) {
+        this.docentes = docentes;
+    }
+
     @Column
     private String clave;
 
@@ -25,8 +39,6 @@ public class UsuarioModelo {
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<DocenteModelo> docentes = new ArrayList<DocenteModelo>();
 
     public int getCedula() {
         return cedula;

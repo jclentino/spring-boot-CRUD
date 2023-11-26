@@ -1,7 +1,9 @@
 package com.app.api.controladores;
 
 import com.app.api.modelos.DocenteModelo;
+import com.app.api.modelos.UsuarioModelo;
 import com.app.api.servicios.DocenteServicio;
+import com.app.api.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class DocenteControlador {
     @Autowired
     private DocenteServicio docenteServicio;
 
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @GetMapping(path = "/All")
     public ResponseEntity<ArrayList<DocenteModelo>> getTeachers(){
@@ -29,9 +33,15 @@ public class DocenteControlador {
         }
     }
 
-    @PostMapping(path = "/Create")
-    public ResponseEntity<DocenteModelo> saveTeacher (@RequestBody DocenteModelo docente){
+    @PostMapping(path = "/Create/{userid}")
+    public ResponseEntity<DocenteModelo> saveTeacher (@RequestBody DocenteModelo docente, @PathVariable("userid") Long userid ){
         try {
+            Optional<UsuarioModelo> usuarioOptional = usuarioServicio.getById(userid);
+            usuarioOptional.ifPresent(usuario -> {
+                docente.setUsuario(usuario);
+                usuario.getDocentes().add(docente);
+                usuarioServicio.saveUser(usuario);
+            });
             DocenteModelo nuevoDocente = this.docenteServicio.saveTeacher(docente);
             return new ResponseEntity<>(nuevoDocente, HttpStatus.OK);
         } catch (Exception e){

@@ -10,7 +10,7 @@ public class DocenteModelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private UsuarioModelo usuario;
 
